@@ -1,0 +1,29 @@
+@import "main.css";
+@import "footer.css";
+
+.menu_bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #d3d6da;
+  padding: 0 0 10px 0;
+}
+
+.menu_bar__menu {
+  width: 50px;
+}
+
+.menu_bar__title {
+  font-size: 50px;
+  font-weight: bolder;
+  margin-left: 150px;
+}
+
+.menu_bar__element {
+  width: 150px;
+}
+
+.menu_bar__element img {
+  width: 40px;
+  justify-content: right;
+}
