@@ -28,15 +28,42 @@ function appStart() {
     div.innerText = "게임이 종료되었습니다.";
     div.style =
       "display:flex; justify-content:center; align-items:center;position:absolute; top:50vh; left:38%; background-color:white;width=50px;height=30px;border:1px solid gray;";
+    div.animate(
+      {
+        backgroundColor: ["#FFFF", "#F7618C"],
+        offset: [0, 0],
+        easing: ["ease-out", "ease-in"],
+      },
+      2000
+    );
     document.body.appendChild(div);
 
     clearInterval(timer);
   };
 
   const nextLine = () => {
-    if (attempts === 6) return gameover();
-    attempts += 1;
-    index = 0;
+    if (attempts === 6) {
+      return gameover();
+      attempts += 1;
+      index = 0;
+    } else {
+      const div = document.createElement("div");
+      div.innerText = "틀렸습니다.";
+      div.style =
+        "display:flex; justify-content:center; align-items:center;position:absolute; top:50vh; left:40%; background-color:white;width=50px;height=30px;border:1px solid gray;";
+      div.animate(
+        {
+          backgroundColor: ["#FFFF", "#8B5CF6"],
+          color: [["#0000", "#FFFF"]],
+          offset: [0, 0],
+          easing: ["ease-out", "ease-in"],
+        },
+        2000
+      );
+      document.body.appendChild(div);
+
+      clearInterval(timer);
+    }
   };
 
   const handleBackspacd = () => {
@@ -51,6 +78,7 @@ function appStart() {
 
   const gameover = () => {
     window.removeEventListener("keydown", handleKeydown);
+    window.removeEventListener("click", handleClick);
     displayGameover();
   };
 
