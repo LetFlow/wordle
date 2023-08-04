@@ -53,7 +53,7 @@ function appStart() {
         offset: [0, 0],
         easing: ["ease-out", "ease-in"],
       },
-      2000
+      1500
     );
     document.body.appendChild(div);
 
