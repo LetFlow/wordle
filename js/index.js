@@ -11,10 +11,13 @@ function appStart() {
     function setTime() {
       const 현재_시간 = new Date();
       const 흐른_시간 = new Date(현재_시간 - 시작_시간);
+      const 연도 = 현재_시간.getFullYear();
+      const 월 = 현재_시간.getMonth() + 1;
+      const 일 = 현재_시간.getDate();
       const 분 = 흐른_시간.getMinutes().toString().padStart(2, "0");
       const 초 = 흐른_시간.getSeconds().toString().padStart(2, "0");
       const timeDiv = document.querySelector("#time");
-      timeDiv.innerText = `${분}:${초}`;
+      timeDiv.innerText = `${연도}년${월}월${일}일,${분}:${초}`;
     }
 
     timer = setInterval(setTime, 1000);
@@ -59,22 +62,32 @@ function appStart() {
       );
 
       const 입력한_글자 = block.innerText;
+      const keyboard = document.querySelector(
+        `.key-part[data-key=${입력한_글자}]`
+      );
       const 정답_글자 = 정답[i];
 
       if (입력한_글자 === 정답_글자) {
         맞은_갯수 += 1;
         block.style.background = "#F7618C";
-      } else if (정답.includes(입력한_글자)) block.style.background = "#8B5CF6";
-      else block.style.background = "#000000";
+        keyboard.style.background = "#F7618C";
+      } else if (정답.includes(입력한_글자)) {
+        block.style.background = "#8B5CF6";
+        keyboard.style.background = "#8B5CF6";
+      } else {
+        block.style.background = "#000000";
+        keyboard.style.background = "#000000";
+      }
 
       block.style.color = "white";
+      keyboard.style.color = "white";
     }
     if (맞은_갯수 === 5) gameover();
     else nextLine();
   };
 
   const handleKeydown = (event) => {
-    console.log("키가 입력!", event.key);
+    console.log("키가 입력!", event);
 
     const key = event.key.toUpperCase();
     const keyCode = event.keyCode;
@@ -92,8 +105,29 @@ function appStart() {
     }
   };
 
+  const handleClick = (e) => {
+    console.log("클릭됨!", e);
+    const key = e.target.dataset.key;
+    const thisBlock = document.querySelector(
+      `.borard-bloc[data-index='${attempts}${index}']`
+    );
+
+    if (e.srcElement.alt === "Backspace") handleBackspacd();
+    else if (index === 5) {
+      if (key === "ENTER") handleEnterKey();
+      else return;
+    } else {
+      if (key === "ENTER") return;
+      else {
+        thisBlock.innerText = key;
+        index += 1;
+      }
+    }
+  };
+
   startTimer();
 
+  window.addEventListener("click", handleClick);
   window.addEventListener("keydown", handleKeydown);
 }
 
