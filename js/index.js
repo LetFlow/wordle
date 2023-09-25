@@ -1,5 +1,4 @@
 const 정답 = "APPLE";
-
 let attempts = 0;
 let index = 0;
 let timer;
@@ -88,8 +87,9 @@ function appStart() {
     displayGameover();
   };
 
-  const handleEnterKey = () => {
+  const handleEnterKey = async () => {
     let 맞은_갯수 = 0;
+
     for (let i = 0; i < 5; i++) {
       const block = document.querySelector(
         `.borard-bloc[data-index='${attempts}${i}']`
@@ -103,14 +103,23 @@ function appStart() {
 
       if (입력한_글자 === 정답_글자) {
         맞은_갯수 += 1;
-        block.style.background = "#F7618C";
-        keyboard.style.background = "#F7618C";
+        if (keyboard == "undefined") return;
+        else {
+          block.style.background = "#F7618C";
+          keyboard.style.background = "#F7618C";
+        }
       } else if (정답.includes(입력한_글자)) {
-        block.style.background = "#8B5CF6";
-        keyboard.style.background = "#8B5CF6";
+        if (keyboard == "undefined") return;
+        else {
+          block.style.background = "#8B5CF6";
+          keyboard.style.background = "#8B5CF6";
+        }
       } else {
-        block.style.background = "#000000";
-        keyboard.style.background = "#000000";
+        if (keyboard == "undefined") return;
+        else {
+          block.style.background = "#000000";
+          keyboard.style.background = "#000000";
+        }
       }
 
       block.style.color = "white";
