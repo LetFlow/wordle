@@ -1,7 +1,11 @@
-const 정답 = "APPLE";
+//const 정답 = "APPLE";
 let attempts = 0;
 let index = 0;
 let timer;
+
+function toPadStart(num) {
+  return String(num).padStart(2, "0");
+}
 
 function appStart() {
   const startTimer = () => {
@@ -89,6 +93,11 @@ function appStart() {
 
   const handleEnterKey = async () => {
     let 맞은_갯수 = 0;
+
+    //서버에서 정답을 받아오는 코드
+    const 응답 = await fetch("/answer");
+    const 정답_객체 = await 응답.json();
+    const 정답 = 정답_객체.answer;
 
     for (let i = 0; i < 5; i++) {
       const block = document.querySelector(
